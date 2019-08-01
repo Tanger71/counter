@@ -6,8 +6,11 @@ import logo from './images/aion-logo.png';
 // const web3 = new Web3(new Web3.providers.HttpProvider("https://aion.api.nodesmith.io/v1/mastery/jsonrpc?apiKey=da85417fac594f0099708ad6e7ea2e97"));
 
 
-const logoStyle = {
-    width: 50
+let logoStyle = {
+    width: 50,
+};
+let hint = {
+    fontSize: 10
 };
 
 
@@ -45,38 +48,61 @@ const logoStyle = {
 // }
 
 class Layout extends React.Component {
+
+    componentDidMount = () => {
+        this.refreshCounter();
+    };
+
     constructor(props){
         super(props);
         this.state = {
-            value: this.props.result,
+            value: null,
             status: null,
             input: ''
         };
-        this.getValue();
     }
 
-    async getValue(){
+    async refreshCounter(){
+        console.log('refreshing counter');
+        logoStyle = {
+            opacity: 0.5,
+            width: 50
+        };
+        this.setState({status: "Updated Counter!"});
         this.setState({value: await this.props.methodCall("getCount")});
+        const localScope = this;
+        setTimeout(function(){
+            logoStyle = {
+                opacity: 1,
+                width: 50
+            };
+            localScope.setState({status: localScope.props.status});
+        }, 500);
     }
 
     async incrementCount(value){
-        this.setState({status: "Awaiting Confirmation with Aiwa..."})
-        await this.props.methodTxnInc(value);
-        this.setState({status: this.props.status});
-        console.log("status", this.props.status);
+        value = parseInt(value);
+        if(value === parseInt(value) && !value.isNaN){
+            this.setState({status: "Awaiting Confirmation with Aiwa..."})
+            await this.props.methodTxnInc(value);
+            this.setState({status: this.props.status});
+            console.log("status", this.props.status);
 
-        const localScope = this;
-        let timer = setInterval(
-            async function() {
-                localScope.setState({status: localScope.props.status});
-                if(localScope.props.status === "txn Complete!"){
-                    console.log("status in", localScope.state.status);
-                    await localScope.getValue();
-                    clearInterval(timer);
-                }
-            },
-            1000
-        );
+            const localScope = this;
+            let timer = setInterval(
+                async function() {
+                    localScope.setState({status: localScope.props.status});
+                    if(localScope.props.status === "txn Complete!"){
+                        console.log("status in", localScope.state.status);
+                        await localScope.refreshCounter();
+                        clearInterval(timer);
+                    }
+                },
+                1000
+            );
+        }else{
+            this.setState({status: "integers only pls :)"});
+        }
 
     }
 
@@ -96,11 +122,8 @@ class Layout extends React.Component {
                 {/*<DetailsInput/>*/}
                 <div className="App">
                     <p>Counter Contract Front</p>
-                    <img style={logoStyle} src={logo} alt="Logo" />
+                    <img style={logoStyle} src={logo} alt="Logo" onClick={() => this.refreshCounter()}/>
                     <p>Counter: {this.state.value}</p>
-                    {/*<div>*/}
-                    {/*    <button onClick={() => this.getValue()}>getCount</button>*/}
-                    {/*</div>*/}
                     <div>
                         <button onClick={() => this.incrementCount(-1)}>Increment -1</button>
                         <button onClick={() => this.incrementCount(1)}>Increment +1</button>
@@ -146,9 +169,9 @@ class App extends React.Component {
             account: null, //user account,
             value: " ",
             status: '',
-            result: "",
             ctAddress: "0xa00d22bee9a6873271751776a4153a0f991d0311e0aa3ad1c4ba6a12772e69a2", //contract address,
-            httpProvider: "https://aion.api.nodesmith.io/v1/mastery/jsonrpc?apiKey=da85417fac594f0099708ad6e7ea2e97"
+            httpProvider: "https://aion.api.nodesmith.io/v1/mastery/jsonrpc?apiKey=da85417fac594f0099708ad6e7ea2e97",
+            result: "",
         };
     }
 
@@ -157,16 +180,6 @@ class App extends React.Component {
         let web3 = new Web3(
             new Web3.providers.HttpProvider(this.state.httpProvider)
         );
-
-
-        // //set aiwa accouunt
-        // try {
-        //     this.setState({
-        //         account:  window.aionweb3.account[0]
-        //     })
-        // } catch(e) {
-        //     console.error("no account for sending", e.message);
-        // }
 
         let data = web3.avm.contract
             .method(methodName)
@@ -251,7 +264,16 @@ class App extends React.Component {
     };
 
     render() {
-        return (<div><Layout status={this.state.status} result={this.state.result} methodCall={this.methodCall} methodTxnInc={this.methodTxnInc}/></div>);
+        return (
+            <div>
+                <div style={hint}>hint: press Aion to refresh counter</div>
+                <Layout
+                status={this.state.status}
+                result={this.state.result}
+                methodCall={this.methodCall}
+                methodTxnInc={this.methodTxnInc}/>
+            </div>
+        );
     }
 
 }

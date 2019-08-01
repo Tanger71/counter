@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fa61d340-f497-4f7b-a57f-9f0660cd76b2" name="Default Changelist" comment="made slightly better - July 31 2019">
+    <list default="true" id="fa61d340-f497-4f7b-a57f-9f0660cd76b2" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
     </list>
@@ -72,7 +72,7 @@
       <updated>1564514423940</updated>
       <workItem from="1564514425089" duration="507000" />
       <workItem from="1564514989377" duration="5942000" />
-      <workItem from="1564580062153" duration="29907000" />
+      <workItem from="1564580062153" duration="34719000" />
     </task>
     <task id="LOCAL-00001" summary="cleanup - July 31 2019">
       <created>1564596746995</created>
@@ -81,7 +81,14 @@
       <option name="project" value="LOCAL" />
       <updated>1564596746995</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="AIWA! - Aug 1 2019">
+      <created>1564673209584</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1564673209584</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -103,6 +110,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="cleanup - July 31 2019" />
     <MESSAGE value="made slightly better - July 31 2019" />
-    <option name="LAST_COMMIT_MESSAGE" value="made slightly better - July 31 2019" />
+    <MESSAGE value="AIWA! - July 31 2019" />
+    <MESSAGE value="AIWA! - Aug 1 2019" />
+    <option name="LAST_COMMIT_MESSAGE" value="AIWA! - Aug 1 2019" />
   </component>
 </project>
