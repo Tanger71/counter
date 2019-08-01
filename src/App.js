@@ -169,7 +169,8 @@ class App extends React.Component {
             account: null, //user account,
             value: " ",
             status: '',
-            ctAddress: "0xa0330f2f60964552fe368d55c116c806a9dd32c332f9e1b50e57ab541cda35fe", //contract address,
+            ctAddress: "0xa0f04980ede906e9addfdfcadd65a63d9f40409ba42d703d97e68d3205a329e1", //contract address,
+            // old one: 0xa00d22bee9a6873271751776a4153a0f991d0311e0aa3ad1c4ba6a12772e69a2
             httpProvider: "https://aion.api.nodesmith.io/v1/mastery/jsonrpc?apiKey=da85417fac594f0099708ad6e7ea2e97",
             result: "",
         };
